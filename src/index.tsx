@@ -6,6 +6,8 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
+
 const reducer = (state = {}, action: any) => {
     switch (action.type) {
         default: { 
@@ -15,7 +17,19 @@ const reducer = (state = {}, action: any) => {
 };
 
 
-const store = createStore(reducer, applyMiddleware(logger));
+const store = createStore(reducer, applyMiddleware(logger, thunkMiddleware));
+
+store.dispatch((dispatch: any) => {
+    dispatch({
+        type: 'START_ASYNC'
+    });
+
+    setTimeout(() => {
+        dispatch({
+            type: 'FINISH_ASYNC',
+        });
+    }, 2000);
+});
 
 ReactDOM.render(
     <Provider store={store}>
