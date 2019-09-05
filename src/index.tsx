@@ -11,6 +11,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { string, number } from 'prop-types';
 import { IProduct } from './models/Product';
 import { ILineItem } from './models/LineItem';
+import { ActionType } from './actionTypes';
 
 
 
@@ -28,18 +29,25 @@ const initialState: IState = {
 
 const reducer = (state: IState = initialState, action: any) => {
     switch (action.type) {
-        case 'GET_PRODUCTS_START': {
+        case ActionType.GET_PRODUCTS_START: {
             return {
                 ...state,
                 isLoading: true
             };
         }
-        case 'GET_PRODUCTS_COMPLETE': {
+        case ActionType.GET_PRODUCTS_COMPLETE: {
             return {
                 ...state,
                 isLoading: false,
                 products: action.payload.products,
             };
+        }
+        case ActionType.ADD_TO_CART: {
+            const item: ILineItem = action.payload;
+            return {
+                ...state,
+                cart: state.cart.concat(item)
+            }
         }
         default: {
             return state;

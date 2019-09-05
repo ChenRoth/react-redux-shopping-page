@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { ShoppingPage } from "./ShoppingPage";
-import { IState } from "..";
-import { IProduct } from "../models/Product";
+import { IState } from "../..";
+import { IProduct } from "../../models/Product";
 
 const mapStateToProps = (state: IState) => ({
     isLoading: state.isLoading,

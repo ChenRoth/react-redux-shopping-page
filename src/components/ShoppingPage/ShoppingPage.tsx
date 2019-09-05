@@ -1,5 +1,6 @@
 import React from 'react';
-import { IProduct } from '../models/Product';
+import { IProduct } from '../../models/Product';
+import Product from '../Product';
 
 export interface IShoppingPageProps {
     getProducts(): void;
@@ -19,11 +20,9 @@ export class ShoppingPage extends React.Component<IShoppingPageProps> {
             return <div>Loading products, please wait...</div>
         }
         return (
-            <ul>
-                {products.map(product =>
-                    <li key={product.id}>{product.name} {product.price}</li>
-                )}
-            </ul>
+            products.map(product =>
+                <Product key={product.id} product={product} />
+            )
         )
     }
 }

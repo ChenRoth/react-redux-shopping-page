@@ -1,6 +1,6 @@
 import { IProduct } from "./Product";
 
 export interface ILineItem {
-    product: IProduct;
+    productId: string;
     quantity: number;
 }
