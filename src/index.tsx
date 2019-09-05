@@ -4,12 +4,18 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+const reducer = (state = {}, action: any) => {
+    switch (action.type) {
+        default: { 
+            return state;
+        }
+    }
+};
 
-const reducer = (state = {}, action: any) => state;
 
-
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(logger));
 
 ReactDOM.render(
     <Provider store={store}>
