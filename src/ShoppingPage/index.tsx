@@ -1,7 +1,9 @@
 import { connect } from "react-redux";
 import { ShoppingPage } from "./ShoppingPage";
+import { IState } from "..";
+import { IProduct } from "../models/Product";
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: IState) => ({
     isLoading: state.isLoading,
     products: state.products,
 });
@@ -18,10 +20,10 @@ const mapDispatchToProps = (dispatch: any) => ({
                 type: 'GET_PRODUCTS_COMPLETE',
                 payload: {
                     products: [
-                        {id: 1, price: 5, name: 'basketball'},
-                        {id: 2, price: 3, name: 'fishing net'},
-                        {id: 3, price: 500, name: 'scuba gear'},
-                    ]
+                        {id: '1', price: 5, name: 'basketball'},
+                        {id: '2', price: 3, name: 'fishing net'},
+                        {id: '3', price: 500, name: 'scuba gear'},
+                    ] as IProduct[]
                 }
             })
         }, 2000);

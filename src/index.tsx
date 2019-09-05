@@ -8,8 +8,15 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { string, number } from 'prop-types';
+import { IProduct } from './models/Product';
 
-const reducer = (state = {isLoading: false, products: []}, action: any) => {
+export interface IState {
+    isLoading: boolean;
+    products: IProduct[];
+}
+
+const reducer = (state: IState = {isLoading: false, products: []}, action: any) => {
     switch (action.type) {
         case 'GET_PRODUCTS_START': {
             return {

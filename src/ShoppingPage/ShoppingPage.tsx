@@ -1,8 +1,9 @@
 import React from 'react';
+import { IProduct } from '../models/Product';
 
 export interface IShoppingPageProps {
     getProducts(): void;
-    products: any[];
+    products: IProduct[];
     isLoading: boolean;
 }
 
