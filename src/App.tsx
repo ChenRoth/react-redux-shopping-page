@@ -1,9 +1,12 @@
 import React from 'react';
 import './App.css';
+import ShoppingPage from './ShoppingPage';
 
 const App: React.FC = () => {
   return (
-    <div>hello</div>
+    <div>
+      <ShoppingPage />
+    </div>
   );
 }
 

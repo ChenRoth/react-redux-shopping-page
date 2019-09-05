@@ -9,18 +9,19 @@ import logger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const reducer = (state = {isLoading: false}, action: any) => {
+const reducer = (state = {isLoading: false, products: []}, action: any) => {
     switch (action.type) {
-        case 'START_ASYNC': {
+        case 'GET_PRODUCTS_START': {
             return {
                 ...state,
                 isLoading: true
             };
         }
-        case 'FINISH_ASYNC': {
+        case 'GET_PRODUCTS_COMPLETE': {
             return {
                 ...state,
-                isLoading: false
+                isLoading: false,
+                products: action.payload.products,
             };
         }
         default: { 
@@ -33,18 +34,6 @@ const reducer = (state = {isLoading: false}, action: any) => {
 const store = createStore(reducer, composeWithDevTools(
     applyMiddleware(logger, thunkMiddleware),
   ));
-
-store.dispatch((dispatch: any) => {
-    dispatch({
-        type: 'START_ASYNC'
-    });
-
-    setTimeout(() => {
-        dispatch({
-            type: 'FINISH_ASYNC',
-        });
-    }, 2000);
-});
 
 ReactDOM.render(
     <Provider store={store}>
