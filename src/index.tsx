@@ -10,13 +10,23 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { string, number } from 'prop-types';
 import { IProduct } from './models/Product';
+import { ILineItem } from './models/LineItem';
+
+
 
 export interface IState {
     isLoading: boolean;
     products: IProduct[];
+    cart: ILineItem[];
 }
 
-const reducer = (state: IState = {isLoading: false, products: []}, action: any) => {
+const initialState: IState = {
+    isLoading: false,
+    products: [],
+    cart: [],
+}
+
+const reducer = (state: IState = initialState, action: any) => {
     switch (action.type) {
         case 'GET_PRODUCTS_START': {
             return {
@@ -31,7 +41,7 @@ const reducer = (state: IState = {isLoading: false, products: []}, action: any) 
                 products: action.payload.products,
             };
         }
-        default: { 
+        default: {
             return state;
         }
     }
@@ -40,7 +50,7 @@ const reducer = (state: IState = {isLoading: false, products: []}, action: any) 
 
 const store = createStore(reducer, composeWithDevTools(
     applyMiddleware(logger, thunkMiddleware),
-  ));
+));
 
 ReactDOM.render(
     <Provider store={store}>
