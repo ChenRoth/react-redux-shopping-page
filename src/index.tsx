@@ -7,9 +7,22 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const reducer = (state = {}, action: any) => {
+const reducer = (state = {isLoading: false}, action: any) => {
     switch (action.type) {
+        case 'START_ASYNC': {
+            return {
+                ...state,
+                isLoading: true
+            };
+        }
+        case 'FINISH_ASYNC': {
+            return {
+                ...state,
+                isLoading: false
+            };
+        }
         default: { 
             return state;
         }
@@ -17,7 +30,9 @@ const reducer = (state = {}, action: any) => {
 };
 
 
-const store = createStore(reducer, applyMiddleware(logger, thunkMiddleware));
+const store = createStore(reducer, composeWithDevTools(
+    applyMiddleware(logger, thunkMiddleware),
+  ));
 
 store.dispatch((dispatch: any) => {
     dispatch({
